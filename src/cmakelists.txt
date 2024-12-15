@@ -1,0 +1,58 @@
+﻿cmake_minimum_required(VERSION 3.18)
+project(xAnatomy LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
+find_package(VTK REQUIRED)
+find_package(DICOM REQUIRED)
+
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+find_package(Qt5 COMPONENTS Core Gui Widgets Multimedia REQUIRED)
+
+# 源文件清单
+SET(Sources 
+"main.cpp" 
+"widget.cpp"
+"VolumeWidget.cpp"
+"volumeAnatomy.cpp"
+"SlicePickInteractorStyle.cpp"
+"SliceExtractor.cpp"
+"SagittalWidget.cpp"
+"PlaneWidget.cpp"
+"MeasureInteractorStyle.cpp"
+"LineMeasure.cpp"
+"DataModel.cpp"
+"CoronalWidget.cpp"
+"AxialWidget.cpp"
+)
+# UI文件清单
+SET(Forms 
+	resources/ui/widget.ui
+	)
+	
+# 资源文件清单
+SET(Resources
+	resources/xAnatomy.qrc
+	)
+
+
+add_executable(xAnatomy ${Sources} ${Forms} ${Resources})
+
+
+target_link_libraries(xAnatomy 
+PRIVATE 
+    ${VTK_LIBRARIES}
+	VTK::DICOM
+    )
+
+# 高于或等于vtk9.0版本，初始化VTK
+vtk_module_autoinit(
+    TARGETS xAnatomy
+    MODULES ${VTK_LIBRARIES}
+)
