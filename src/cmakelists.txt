@@ -13,7 +13,7 @@ find_package(DICOM REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-find_package(Qt5 COMPONENTS Core Gui Widgets Multimedia REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 # 源文件清单
 SET(Sources 
@@ -49,6 +49,7 @@ target_link_libraries(xAnatomy
 PRIVATE 
     ${VTK_LIBRARIES}
 	VTK::DICOM
+	Qt5::Core Qt5::Gui Qt5::Widgets
     )
 
 # 高于或等于vtk9.0版本，初始化VTK
