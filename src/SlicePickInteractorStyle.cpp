@@ -1,4 +1,4 @@
-#include "SlicePickInteractorStyle.h"
+﻿#include "SlicePickInteractorStyle.h"
 #include <vtkRenderer.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkObjectFactory.h>
@@ -91,10 +91,11 @@ void SlicePickInteractorStyle::OnMouseMove()
 	if (m_pickedActor != nullptr)
 	{
 		// 
-		m_widget;
-		int x, y;
+		int px, py, x, y;
 		this->Interactor->GetEventPosition(x, y);
-		RotateAxes(x, y);
+		this->Interactor->GetLastEventPosition(px, py);
+		if (x != px || y != py)
+			RotateAxes(px, py, x, y);
 	}
 
 	// Forward events
@@ -104,14 +105,14 @@ void SlicePickInteractorStyle::OnMouseMove()
 
 void SlicePickInteractorStyle::MoveAxes(int x, int y)
 {
-	qDebug() << QString("screen   x:%1, y:%2").arg(x).arg(y);
+	//qDebug() << QString("screen   x:%1, y:%2").arg(x).arg(y);
 	m_widget->setAxesOrigin(x, y);
 }
 
-void SlicePickInteractorStyle::RotateAxes(int x, int y)
+void SlicePickInteractorStyle::RotateAxes(int pre_x, int pre_y, int x, int y)
 {
 	if (m_widget->rect().contains(x, y)) {
-		qDebug() << QString("screen   x:%1, y:%2").arg(x).arg(y);
-		m_widget->rotateAxes(x, y, m_pickedActor);
+		//qDebug() << QString("screen px:%1, py:%2 \t x:%3, y:%4").arg(pre_x).arg(pre_y).arg(x).arg(y);
+		m_widget->rotateAxes(pre_x, pre_y, x, y);
 	}
 }

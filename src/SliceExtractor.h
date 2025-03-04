@@ -22,8 +22,7 @@ public:
 	void moveAxesOrigin(BaseStruct::PlaneType t, bool isHAxis, double offset);
 
 	void rotateAxes(BaseStruct::PlaneType t, double theta);
-	void rotateAxes(BaseStruct::PlaneType t, double origin[4]);	// 该函数调整第一个窗口的Y轴时有bug！！！
-	void rotateAxes(BaseStruct::PlaneType t, bool isHAxis, double origin[4]);
+	void rotateAxes(BaseStruct::PlaneType t, double pre_origin[4], double origin[4]);
 
 	void resetAxes();
 

@@ -11,6 +11,7 @@
 #include <vtkMath.h>
 #include <vtkConeSource.h>
 #include <vtkPolyData.h>
+#include <vtkDICOMToRAS.h>
 
 
 DataModel::DataModel()
@@ -107,8 +108,17 @@ void DataModel::readDicomFiles(const QString& dicomFilePath)
 	pmat->Invert();	
 	//setModelMat(pmat);
 
+	// 	vtkNew<vtkDICOMToRAS> converter;
+	// 	converter->SetInputConnection(reader->GetOutputPort());
+	// 	converter->SetPatientMatrix(reader->GetPatientMatrix());
+	// 	converter->SetAllowRowReordering(true);
+	// 	converter->SetAllowColumnReordering(true);
+	// 	converter->UpdateMatrix();
+	// 	converter->Update();
+
 	m_metaData = reader->GetMetaData();
 	m_imageData = reader->GetOutput();	
+	//m_imageData = converter->GetOutput();
 
 	m_imageData->GetCenter(m_position);// 体数据的中心作为输出切片的(0,0,0)点
 }

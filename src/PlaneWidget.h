@@ -32,7 +32,7 @@ public:
 
 	void setAxesOrigin(int x, int y);
 
-	void rotateAxes(int x, int y, vtkActor* axis);
+	void rotateAxes(int pre_x, int pre_y, int x, int y);
 
 public slots:
 	void setMeasureMode(bool enter);

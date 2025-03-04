@@ -1,4 +1,4 @@
-#include <vtkSmartPointer.h>
+﻿#include <vtkSmartPointer.h>
 #include <vtkInteractorStyle.h>
 #include <vtkInteractorStyleImage.h>
 
@@ -27,7 +27,7 @@ public:
 
 protected:
 	void MoveAxes(int x, int y);
-	void RotateAxes(int x, int y);
+	void RotateAxes(int pre_x, int pre_y, int x, int y);
 
 protected:
 	PlaneWidget* m_widget = nullptr;

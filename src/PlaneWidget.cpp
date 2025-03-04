@@ -259,13 +259,14 @@ void PlaneWidget::setAxesOrigin(int x, int y)
 	m_sliceExtractor->setAxesOrigin(m_type, world);
 }
 
-void PlaneWidget::rotateAxes(int x, int y, vtkActor* axis)
+void PlaneWidget::rotateAxes(int pre_x, int pre_y, int x, int y)
 {
+	double pre_world[4]{ 0.0 };
 	double world[4]{ 0.0 };
+	pickWorldPosition(pre_x, pre_y, pre_world);
 	pickWorldPosition(x, y, world);
 
-	//m_sliceExtractor->rotateAxes(m_type, world);
-	m_sliceExtractor->rotateAxes(m_type, axis == HAxesActor.Get(), world);
+	m_sliceExtractor->rotateAxes(m_type, pre_world, world);
 }
 
 void PlaneWidget::setMeasureMode(bool enter)
@@ -292,5 +293,5 @@ void PlaneWidget::pickWorldPosition(int x, int y, double world[4]) const
 	worldPicker->Pick(x, y, 0, this->m_renderer);
 	worldPicker->GetPickPosition(world);
 	world[3] = 1.0;
-	qDebug() << QString("slice position   x:%1, y:%2, z:%3").arg(world[0]).arg(world[1]).arg(world[2]);
+	//qDebug() << QString("slice position   x:%1, y:%2, z:%3").arg(world[0]).arg(world[1]).arg(world[2]);
 }
