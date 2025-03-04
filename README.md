@@ -5,6 +5,13 @@
 - VR，体渲染显示
 - 切片选择的鼠标交互
 
+
+
+https://github.com/user-attachments/assets/b8b54441-febc-486b-8d90-8e02149646b6
+
+
+
 ## 依赖库
 - VTK
+- VTK-DICOM
 - QT
