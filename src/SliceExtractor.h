@@ -14,6 +14,8 @@ public:
 	DataModel* getDataModel();
 
 	vtkSmartPointer<vtkMatrix4x4> getResliceAxes(BaseStruct::PlaneType t) const;
+	void setResliceAxes(BaseStruct::PlaneType t, vtkSmartPointer<vtkMatrix4x4> resliceAxes) const;
+
 	vtkSmartPointer<vtkImageData> extractSlice(BaseStruct::PlaneType t) const;
 	vtkSmartPointer<vtkPolyData> extractImplantSlice(BaseStruct::PlaneType t) const;
 
@@ -29,7 +31,7 @@ public:
 	void playAxes(BaseStruct::PlaneType t);
 
 
-private:
+private:	
 	void clampPosition(double nposition[4], BaseStruct::PlaneType t);
 	double calculateRotateDegrees(const double* oldAxes, double* newAxes, const double* baseAxis);
 
@@ -38,5 +40,5 @@ signals:
 	void sigAxesChanged(BaseStruct::PlaneType t, double theta = 0.0);
 
 private:
-	DataModel* m_dataModel = nullptr;
+	DataModel* m_dataModel = nullptr;	
 };

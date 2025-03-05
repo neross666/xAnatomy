@@ -97,6 +97,12 @@ double DataModel::getWindowCenter() const
 	return m_metaData->Get(DC::WindowCenter).AsDouble();
 }
 
+/*
+* DICOM数据是LPS坐标系，reader->GetPatientMatrix()标识XYZ-LPS之间的变换矩阵
+* vtkDICOMToRAS可以将LPS坐标系转换为RAS坐标系，允许行列重排，即确保XYZ与RAS一一对应
+* 1. 变换到LPS坐标系下，然后再取矢状面(LP)-冠状面(PS)-横截面(LS)
+* 2. 变换到RAS坐标系下，然后再取矢状面(AS)-冠状面(RS)-横截面(RA)
+*/
 void DataModel::readDicomFiles(const QString& dicomFilePath)
 {
 	auto files = getDcmFileList(dicomFilePath);
@@ -105,16 +111,15 @@ void DataModel::readDicomFiles(const QString& dicomFilePath)
 	reader->Update();
 
 	auto pmat = reader->GetPatientMatrix();
-	pmat->Invert();	
-	//setModelMat(pmat);
+	pmat->Print(std::cout);
 
-	// 	vtkNew<vtkDICOMToRAS> converter;
-	// 	converter->SetInputConnection(reader->GetOutputPort());
-	// 	converter->SetPatientMatrix(reader->GetPatientMatrix());
-	// 	converter->SetAllowRowReordering(true);
-	// 	converter->SetAllowColumnReordering(true);
-	// 	converter->UpdateMatrix();
-	// 	converter->Update();
+	//vtkNew<vtkDICOMToRAS> converter;
+	//converter->SetInputConnection(reader->GetOutputPort());
+	//converter->SetPatientMatrix(reader->GetPatientMatrix());
+	//converter->SetAllowRowReordering(true);
+	//converter->SetAllowColumnReordering(true);
+	//converter->UpdateMatrix();
+	//converter->Update();
 
 	m_metaData = reader->GetMetaData();
 	m_imageData = reader->GetOutput();	
