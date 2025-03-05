@@ -28,6 +28,9 @@ void SlicePickInteractorStyle::OnLeftButtonDown()
 
 	// Get the actor that was picked
 	this->m_pickedActor = picker->GetActor();
+	if (this->m_pickedActor != nullptr)
+		m_widget->activeAxesActor(true);
+	
 
 	// Forward events
 	vtkInteractorStyleImage::OnLeftButtonDown();
@@ -36,6 +39,7 @@ void SlicePickInteractorStyle::OnLeftButtonDown()
 void SlicePickInteractorStyle::OnLeftButtonUp()
 {
 	this->m_pickedActor = nullptr;
+	m_widget->activeAxesActor(false);
 
 	// Forward events
 	vtkInteractorStyleImage::OnLeftButtonUp();

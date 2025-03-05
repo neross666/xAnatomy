@@ -14,7 +14,6 @@
 #include <vtkWorldPointPicker.h>
 #include <vtkCamera.h>
 #include <vtkTransform.h>
-#include <vtkPolyDataMapper.h>
 #include "SlicePickInteractorStyle.h"
 #include "MeasureInteractorStyle.h"
 #include "DataModel.h"
@@ -212,8 +211,8 @@ void PlaneWidget::makeAxesActor(double bounds[6])
 	// 颜色依赖m_type区分
 	this->HAxesActor->GetProperty()->SetLineWidth(5);
 	this->VAxesActor->GetProperty()->SetLineWidth(5);
-	this->HAxesActor->GetProperty()->SetOpacity(1.0);
-	this->VAxesActor->GetProperty()->SetOpacity(1.0);
+	this->HAxesActor->GetProperty()->SetOpacity(0.8);
+	this->VAxesActor->GetProperty()->SetOpacity(0.8);
 
 	int i = static_cast<int>(m_type);
 	this->HAxesActor->GetProperty()->SetColor(colors[i % 3]);
@@ -294,4 +293,19 @@ void PlaneWidget::pickWorldPosition(int x, int y, double world[4]) const
 	worldPicker->GetPickPosition(world);
 	world[3] = 1.0;
 	//qDebug() << QString("slice position   x:%1, y:%2, z:%3").arg(world[0]).arg(world[1]).arg(world[2]);
+}
+
+void PlaneWidget::activeAxesActor(bool active)
+{
+	if (active)
+	{
+		this->HAxesActor->GetProperty()->SetOpacity(1.0);
+		this->VAxesActor->GetProperty()->SetOpacity(1.0);
+	}
+	else
+	{
+		this->HAxesActor->GetProperty()->SetOpacity(0.8);
+		this->VAxesActor->GetProperty()->SetOpacity(0.8);
+	}	
+	this->renderWindow()->Render();
 }

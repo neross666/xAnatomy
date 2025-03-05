@@ -34,6 +34,8 @@ public:
 
 	void rotateAxes(int pre_x, int pre_y, int x, int y);
 
+	void activeAxesActor(bool active);
+
 public slots:
 	void setMeasureMode(bool enter);
 
@@ -57,8 +59,9 @@ protected:
 
 	void pickWorldPosition(int x, int y, double world[4]) const;
 
+
 protected:
-	BaseStruct::PlaneType m_type;
+	BaseStruct::PlaneType m_type = BaseStruct::PlaneType::Sagittal;
 	SliceExtractor* m_sliceExtractor = nullptr;
 
 	vtkSmartPointer<vtkLineSource> HAxes = nullptr;
